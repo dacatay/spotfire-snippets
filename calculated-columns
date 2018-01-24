@@ -1,7 +1,7 @@
-# case_when
+# create calcualted column with new entries based on old column
 case  
    when [B2TAGE]<30 then "DPD < 30" 
    when [B2TAGE]>=30 then "DPD >= 30" 
    when [B2TAGE] is NULL then "DPD = 0"
    else "DPD = 0"
-end
+end as [NEW_COLUMN]
