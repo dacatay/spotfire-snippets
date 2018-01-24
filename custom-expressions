@@ -1,0 +1,32 @@
+# denserank by value und write everything that does not fit the criterion into "Others"
+
+
+
+# Collection of Cell value expressions
+Count() as [Positionen insgesamt], 
+UniqueCount([KDNR]) as [Positionen einzigartig], 
+Sum([EAD]) as [EAD], 
+Sum(If([TILGUNGSSTRUKTUR]="E",[EAD],null)) as [EAD endfällig], 
+Sum(If([TILGUNGSSTRUKTUR]!="E",[EAD],null)) as [EAD nicht endfällig], 
+Sum(If(([TILGUNGSSTRUKTUR]!="E") and (DateDiff("day",Date(2017,11,30),[RESTLAUFZEIT_IA])>180),[EAD],null)) as [EAD nicht endfällig 6M], 
+Sum(If([BAW_FLAG_IA]="0",[EAD],null)) as [EAD non-baw], 
+Sum(If([BAW_FLAG_IA]="1",[EAD],null)) as [EAD baw], 
+Sum(case  when [IFRS9_STAGE_FINAL]="2" then 1 end) / Count() as [Anteil Stage 2], 
+Sum(If([IFRS9_STAGE_FINAL]="2",[EAD],0)) as [Anteil EAD Stage 2], 
+Sum([LAD_OBLIGOR]) as [LAD], 
+Sum(If([TILGUNGSSTRUKTUR]="E",[LAD_OBLIGOR],null)) as [LAD endfällig], 
+Sum(If([TILGUNGSSTRUKTUR]!="E",[LAD_OBLIGOR],null)) as [LAD nicht endfällig], 
+Sum(If(([TILGUNGSSTRUKTUR]!="E") and (DateDiff("day",Date(2017,11,30),[RESTLAUFZEIT_IA])>180),[LAD_OBLIGOR],null)) as [LAD nicht endfällig 6M], 
+Sum(If([BAW_FLAG_IA]="0",[LAD_OBLIGOR],null)) as [LAD non-baw], 
+Sum(If([BAW_FLAG_IA]="1",[LAD_OBLIGOR],null)) as [LAD baw], 
+Sum([LGD_OBLIGOR]) as [LGD], 
+Sum([rv_aktuell_EUR]) as [RV IAS39], 
+Sum(If([IFRS9_STAGE_FINAL]="1",[EL],[EL_LIFETIME])) as [RV IFRS9], 
+Sum([EL]) as [EL 1Y], 
+Sum([EL_LIFETIME]) as [EL Lifetime], 
+Sum([EL]) / Sum([EAD]) as [Risikodichte], 
+Sum([NOMINALBETRAG]) as [Nominal], 
+Sum([KREDSBIL]) as [LLP IAS39], 
+Sum([LLP_BEMESSUNGSGRUNDLAGE_IFRS]) as [LLP IFRS9], 
+Sum([OFFLIMIZ]) as [Offene Linien], 
+Avg([IFRS9_ORIGIN_PD]) as [Durchschn. PD bei Zugang]
