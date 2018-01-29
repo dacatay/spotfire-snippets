@@ -1,0 +1,5 @@
+# numerical value
+If([B2TAGE]>=30,true,false) and If([B2TAGE]<90,true,false)
+
+# filter for empty rows only
+if([NPE_STATUS] is null, true, false)
