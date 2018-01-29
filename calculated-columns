@@ -5,3 +5,12 @@ case
    when [B2TAGE] is NULL then "DPD = 0"
    else "DPD = 0"
 end as [NEW_COLUMN]
+
+
+case  
+  when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="MAR" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".03.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
+  when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="MAY" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".05.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
+  when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="OCT" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".10.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
+  when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="DEC" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".12.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
+  when [IFRS9_LAUFZEIT_ENDE_IA] is not null then ParseDate([IFRS9_LAUFZEIT_ENDE_IA],"ddMMMyyyy")
+end
