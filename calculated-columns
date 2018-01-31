@@ -14,3 +14,11 @@ case
   when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="DEC" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".12.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
   when [IFRS9_LAUFZEIT_ENDE_IA] is not null then ParseDate([IFRS9_LAUFZEIT_ENDE_IA],"ddMMMyyyy")
 end
+
+
+
+case  
+  when [IFRS9_STAGE_FINAL]="1" then [EL] / [EAD] 
+  when [IFRS9_STAGE_FINAL]="2" then [EL_LIFETIME] / [EAD] 
+  when [IFRS9_STAGE_FINAL]="3" then [EL_LIFETIME] / [EAD]
+end
