@@ -1,3 +1,6 @@
+# filter for specific conditions
+If([SOMETHING]>3000000,true,false) and If(DateDiff("year",Date(2017,11,30),[RESTLAUFZEIT_IA])<=100,true,false)
+
 # numerical value
 If([B2TAGE]>=30,true,false) and If([B2TAGE]<90,true,false)
 
