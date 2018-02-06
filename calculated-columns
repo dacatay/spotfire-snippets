@@ -7,6 +7,7 @@ case
 end as [NEW_COLUMN]
 
 
+# RESTLAUFZEIT_IA
 case  
   when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="MAR" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".03.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
   when Mid([IFRS9_LAUFZEIT_ENDE_IA],3,3)="MAY" then Date(Concatenate(left([IFRS9_LAUFZEIT_ENDE_IA],2),".05.",right([IFRS9_LAUFZEIT_ENDE_IA],4))) 
@@ -16,9 +17,21 @@ case
 end
 
 
-
+# Risikodichte
 case  
   when [IFRS9_STAGE_FINAL]="1" then [EL] / [EAD] 
   when [IFRS9_STAGE_FINAL]="2" then [EL_LIFETIME] / [EAD] 
   when [IFRS9_STAGE_FINAL]="3" then [EL_LIFETIME] / [EAD]
 end
+
+
+# Coverage IFRS9
+case  
+  when [IFRS9_STAGE_FINAL]="1" then [EL] / [LLP_BEMESSUNGSGRUNDLAGE_IFRS] 
+  when [IFRS9_STAGE_FINAL]="2" then [EL_LIFETIME] / [LLP_BEMESSUNGSGRUNDLAGE_IFRS] 
+  when [IFRS9_STAGE_FINAL]="3" then [EL_LIFETIME] / [LLP_BEMESSUNGSGRUNDLAGE_IFRS] 
+end 
+
+
+# RV IFRS9
+If([IFRS9_STAGE_FINAL]="1",[EL], [EL_LIFETIME])
